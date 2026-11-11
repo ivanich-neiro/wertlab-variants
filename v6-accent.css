@@ -1,0 +1,145 @@
+/* v6.4 — строка преимуществ, акценты, насыщенные фоны для красного, оранжевого и золотого */
+.hero-bar{gap:48px;flex-wrap:wrap}
+.feats{display:flex;gap:48px;flex-wrap:wrap}
+.feats li{display:flex;align-items:center;gap:14px}
+.feats svg{width:40px;height:40px;padding:9px;border-radius:min(var(--r),12px);fill:none;stroke:var(--accent-hi);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;background:color-mix(in srgb,var(--accent) 14%,transparent);box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--accent) 35%,transparent)}
+.feats span{display:grid;font-size:14px;line-height:1.35;color:var(--muted)}
+.feats b{font-size:16px;color:var(--ink);font-weight:600}
+.hero-bar a.hb-addr{margin-left:auto;gap:10px}
+h2 em{color:var(--accent-hi)}
+.ghost,.beam{display:none}
+.stage-bg{overflow:hidden}
+
+/* ===== КРАСНЫЙ: карбон, красные лучи, свечение ===== */
+.red{--bg:#0c0c0e;--s1:#141417;--s2:#1c1c20}
+.red .stage-bg{display:block;background:
+ radial-gradient(ellipse 50% 60% at 78% 45%,#e1060038,transparent 70%),
+ radial-gradient(ellipse 30% 40% at 10% 100%,#e1060026,transparent 70%),
+ repeating-linear-gradient(45deg,#ffffff06 0 2px,transparent 2px 7px),
+ repeating-linear-gradient(-45deg,#00000040 0 2px,transparent 2px 7px)}
+.red .stage-bg:after,.orange .stage-bg:after,.gold .stage-bg:after{display:none}
+.red .ghost,.orange .ghost,.gold .ghost{display:block;position:absolute;left:50%;bottom:-.18em;transform:translateX(-50%);white-space:nowrap;font:800 clamp(160px,22vw,360px)/1 'Manrope',sans-serif;letter-spacing:-.04em;color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.08);user-select:none}
+.red .ghost{font-family:'Jost',sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.02em;-webkit-text-stroke:1px rgba(255,255,255,.08)}
+.red .beam,.orange .beam{display:block;position:absolute;left:-20%;width:140%;transform:rotate(-14deg);pointer-events:none}
+.red .b1{top:22%;height:2px;background:linear-gradient(90deg,transparent 30%,#ff1a0d 60%,transparent 85%);box-shadow:0 0 24px 2px #e10600aa;opacity:.8;animation:sweep 7s var(--ease) infinite}
+.red .b2{top:58%;height:140px;background:linear-gradient(90deg,transparent 35%,#e1060030 62%,transparent 85%);filter:blur(20px)}
+@keyframes sweep{0%,100%{transform:rotate(-14deg) translateX(-6%);opacity:.5}50%{transform:rotate(-14deg) translateX(6%);opacity:1}}
+.red .hero-stage h1 em{text-shadow:0 0 48px #e1060080}
+.red .hero-photo{box-shadow:0 0 0 1px #e1060070,0 50px 140px -30px #e10600b0}
+.red .btn:not(.btn-white):not(.btn-ghost){background:linear-gradient(180deg,#ff2414,#c40500);box-shadow:0 12px 30px -10px #e10600cc,inset 0 1px 0 #ffffff40}
+.red .prices-sec{background:radial-gradient(ellipse 50% 60% at 100% 0%,#e1060022,transparent 60%),repeating-linear-gradient(45deg,#ffffff04 0 2px,transparent 2px 7px),var(--s1)}
+.red .band:before{background:linear-gradient(0deg,var(--bg) 2%,#0c0c0ecc 40%,#e1060055),linear-gradient(90deg,#e1060033,transparent 60%)}
+.red .band .steps li:before{width:100%;height:2px;background:linear-gradient(90deg,#e10600,transparent)}
+.red .book{background:radial-gradient(ellipse 50% 70% at 0% 100%,#e1060026,transparent 60%),var(--s1)}
+.red .tile:hover .tile-foot i{box-shadow:0 0 30px #e10600aa}
+.red .intro{background:radial-gradient(ellipse 40% 60% at 100% 50%,#e1060018,transparent 70%)}
+
+/* ===== ОРАНЖЕВЫЙ: закатное свечение, тёплые лучи ===== */
+.orange{--bg:#100b08;--s1:#18110c;--s2:#211810;--muted:#ad9f92;--line:#ffd2b31a}
+.orange .stage-bg{display:block;background:
+ radial-gradient(ellipse 45% 70% at 26% 100%,#ff5b1466,transparent 65%),
+ radial-gradient(ellipse 60% 50% at 30% 40%,#ff7a2a1f,transparent 70%),
+ radial-gradient(ellipse 40% 50% at 95% 10%,#ffb36614,transparent 70%),
+ linear-gradient(180deg,#100b08,#1a0f08 70%,#100b08)}
+.orange .ghost{-webkit-text-stroke:1px rgba(255,138,74,.13);bottom:-.2em}
+.orange .b1{top:30%;height:1px;background:linear-gradient(90deg,transparent 20%,#ff8a4a 50%,transparent 80%);box-shadow:0 0 18px #ff5b14;opacity:.7}
+.orange .b2{top:48%;height:220px;background:linear-gradient(90deg,transparent 20%,#ff5b1424 45%,transparent 75%);filter:blur(30px)}
+.orange .hero-stage h1 em,.orange h2 em{background:linear-gradient(90deg,#ff5b14,#ffa057);-webkit-background-clip:text;background-clip:text;color:transparent}
+.orange .hero-photo{box-shadow:0 0 0 1px #ff5b1460,0 50px 140px -30px #ff5b14a0}
+.orange .btn:not(.btn-white):not(.btn-ghost){background:linear-gradient(135deg,#ff7a2a,#ff4d0a);box-shadow:0 12px 30px -10px #ff5b14cc,inset 0 1px 0 #ffffff50}
+.orange .prices-sec{background:radial-gradient(ellipse 60% 60% at 0% 0%,#ff5b141c,transparent 60%),radial-gradient(ellipse 50% 50% at 100% 100%,#ff5b1414,transparent 60%),var(--s1)}
+.orange .band:before{background:linear-gradient(0deg,var(--bg) 2%,#100b08b3 40%,#ff5b1440),linear-gradient(90deg,transparent 40%,#ff5b1433)}
+.orange .tile:after{background:linear-gradient(0deg,#100b08f2 0%,#100b0880 40%,#ff5b1418 75%,transparent)}
+.orange .book{background:radial-gradient(ellipse 50% 70% at 100% 100%,#ff5b141f,transparent 60%),var(--s1)}
+
+/* ===== ЗОЛОТОЙ: металлик, тёплый свет, рамка ===== */
+.gold{--gold:linear-gradient(100deg,#8c6a33 0%,#e8cf96 20%,#b38945 42%,#f7e8bf 60%,#a57c3e 82%,#dcc088 100%);--bg:#0b0907;--s1:#120f0b;--s2:#1a1510}
+.gold .stage-bg{display:block;background:
+ radial-gradient(ellipse 40% 55% at 78% 40%,#c9a66b2e,transparent 70%),
+ radial-gradient(ellipse 35% 45% at 15% 85%,#c9a66b1a,transparent 70%),
+ radial-gradient(ellipse 80% 80% at 50% 50%,transparent 50%,#000a 100%)}
+.gold .ghost{font:italic 500 clamp(180px,24vw,400px)/1 'Cormorant Garamond',serif;letter-spacing:-.02em;-webkit-text-stroke:1px rgba(201,166,107,.16);bottom:-.25em}
+.gold em,.gold h2 em,.gold .hero-stage h1 em{background:var(--gold);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:sheen 8s ease-in-out infinite}
+@keyframes sheen{50%{background-position:100% 0}}
+.gold .btn:not(.btn-ghost){background:var(--gold);background-size:200% 100%;color:#1a1208;box-shadow:0 12px 30px -12px #c9a66bb0,inset 0 1px 0 #fff6;transition:transform .4s var(--ease),box-shadow .4s var(--ease),background-position .8s var(--ease)}
+.gold .btn:not(.btn-ghost):hover{background:var(--gold);background-size:200% 100%;background-position:100% 0;box-shadow:0 18px 40px -12px #c9a66bd0}
+.gold .btn-ghost{box-shadow:inset 0 0 0 1px #c9a66b80;color:#f0dfb8}
+.gold .btn-ghost:hover{box-shadow:inset 0 0 0 1px #e8cf96,0 18px 36px -20px #000}
+.gold .hero-photo{overflow:visible;box-shadow:none}
+.gold .hero-photo img{box-shadow:0 50px 120px -40px #000}
+.gold .hero-photo:after{display:none}
+.gold .hero-photo:before{display:block;content:'';position:absolute;inset:-16px;height:auto;background:none;border:1px solid #c9a66b55;z-index:-1}
+.gold .feats svg{stroke:#e8cf96;background:#c9a66b14;box-shadow:inset 0 0 0 1px #c9a66b40}
+.gold .section .head h2:after{content:'';display:block;width:120px;height:1px;margin:24px auto 0;background:linear-gradient(90deg,transparent,#c9a66b,transparent)}
+.gold .prices-sec{background:radial-gradient(ellipse 50% 60% at 50% 0%,#c9a66b1c,transparent 65%),var(--s1)}
+.gold .band:before{background:linear-gradient(0deg,var(--bg) 2%,#0b0907b3 40%,#c9a66b30)}
+.gold .book{background:radial-gradient(ellipse 50% 70% at 100% 0%,#c9a66b1a,transparent 60%),var(--s1)}
+.gold .tile{box-shadow:inset 0 0 0 1px #c9a66b30}
+.gold .tile-foot b,.gold .pl-price{color:#e8cf96}
+.gold .facts dt{background:var(--gold);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+@media(max-width:1100px){.hero-bar a.hb-addr{margin-left:0}.feats{gap:24px}}
+@media(max-width:760px){.feats{flex-direction:column;gap:16px}.red .ghost,.orange .ghost,.gold .ghost{font-size:34vw}.gold .hero-photo:before{inset:-8px}}
+
+/* номерной знак WERTLAB 18 — фиолетовый вариант */
+.hero-photo{container-type:inline-size}
+.plate{position:absolute;z-index:3;left:73.4%;top:65.2%;width:21cqw;aspect-ratio:520/112;translate:-50% -50%;transform:perspective(60cqw) rotateY(-16deg) rotateZ(-.6deg);
+ display:flex;align-items:stretch;background:linear-gradient(180deg,#f4f4f6,#d9d9de);border:.35cqw solid #111;border-radius:.6cqw;color:#0b0b0d;
+ box-shadow:0 .6cqw 1.2cqw #000c,inset 0 0 0 .15cqw #fff8;filter:brightness(.55) contrast(1.05);font-family:'Jost','Manrope',sans-serif;line-height:1;overflow:hidden}
+.pl-main{flex:1;display:grid;place-items:center;font-weight:600;font-size:2.55cqw;letter-spacing:.06em;padding-top:.1cqw}
+.pl-reg{width:24%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.2cqw;border-left:.25cqw solid #111}
+.pl-reg b{font-weight:600;font-size:2.2cqw}
+.pl-reg small{display:flex;align-items:center;gap:.25cqw;font-size:.75cqw;font-weight:600;letter-spacing:.04em}
+.pl-reg i{width:1.3cqw;height:.85cqw;background:linear-gradient(#fff 33%,#1c3fa8 33% 66%,#d52b1e 66%);box-shadow:0 0 0 .05cqw #0006}
+.plate:after{content:'';position:absolute;inset:0;background:linear-gradient(100deg,transparent 30%,#ffffff30 45%,transparent 60%);mix-blend-mode:screen}
+
+/* красный: плотный шрифт и новый блок этапов */
+.red{--hf:'Inter Tight',sans-serif;--hw:900;--hls:-.025em;--htt:uppercase}
+.red h1,.red .hero-stage h1{font-size:clamp(46px,5.2vw,84px);line-height:.92;font-style:italic;letter-spacing:-.03em}
+.red h2{font-weight:900;font-style:italic;letter-spacing:-.025em}
+.red .tile h3,.red .pl-head h3{font-weight:800;font-style:italic;font-size:32px}
+.red .nav-links,.red .btn{font-family:'Inter Tight',sans-serif;letter-spacing:.08em;font-weight:700}
+.red .ghost{font-family:'Inter Tight',sans-serif;font-weight:900;font-style:italic;-webkit-text-stroke:1px rgba(255,255,255,.07)}
+.red .statement{font-family:'Inter Tight',sans-serif;font-weight:600;letter-spacing:-.02em}
+.red .facts dt{font-weight:900;font-style:italic}
+/* этапы без розовой заливки фото */
+.red .band{min-height:0;padding:120px 0;background:radial-gradient(ellipse 50% 80% at 85% 50%,#e1060030,transparent 70%),repeating-linear-gradient(45deg,#ffffff05 0 2px,transparent 2px 7px),#0a0a0c;border-block:1px solid #ffffff10}
+.red .band-media,.red .band:before{display:none}
+.red .steps{gap:0;counter-reset:none}
+.red .steps li{padding:40px 40px 44px;border-top:0;border-left:1px solid #ffffff14;position:relative;transition:background .4s}
+.red .steps li:first-child{border-left:0;padding-left:0}
+.red .steps li:before{content:'';position:absolute;left:40px;right:40px;top:0;width:auto;height:2px;background:linear-gradient(90deg,#e10600,transparent);transform:scaleX(.25);transform-origin:left;transition:transform .6s var(--ease)}
+.red .steps li:first-child:before{left:0}
+.red .steps li:hover:before{transform:scaleX(1)}
+.red .steps li:after{content:'';position:absolute;right:-13px;top:52px;width:26px;height:26px;border-radius:50%;background:#0a0a0c url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M4 10h11M11 5.5 15.5 10 11 14.5' fill='none' stroke='%23e10600' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/14px no-repeat;box-shadow:0 0 0 1px #e1060066;z-index:2}
+.red .steps li:last-child:after{display:none}
+.red .steps h3{font-size:clamp(34px,3.4vw,52px);font-weight:900;font-style:italic;line-height:1}
+.red .steps p{font-size:17px;color:#b9b9c0;margin-top:16px}
+@media(max-width:760px){.red .steps li,.red .steps li:first-child{padding:28px 0;border-left:0;border-top:1px solid #ffffff14}.red .steps li:before,.red .steps li:first-child:before{left:0;right:0}.red .steps li:after{display:none}}
+.red .hero-stage h1{font-size:clamp(42px,4.4vw,72px)}
+
+/* оранжевый: чистые ч/б фото с тёплым свечением вместо бурого тона */
+.orange{--grade:grayscale(1) contrast(1.18) brightness(.7);--tint:transparent}
+.orange .ph:after{background:linear-gradient(0deg,#ff5b1440,transparent 55%);mix-blend-mode:normal;opacity:1}
+.orange .tile:after{background:linear-gradient(0deg,#0b0705f5 0%,#0b0705b0 38%,#0b070520 70%,transparent)}
+.orange .tile:hover .ph img{filter:grayscale(.2) contrast(1.1) brightness(.8)}
+.orange .tile{box-shadow:inset 0 0 0 1px #ff5b1426}
+.orange .tile:hover{box-shadow:inset 0 0 0 1px #ff5b1480,0 30px 60px -30px #ff5b1466}
+.orange .mosaic figure:hover img{filter:grayscale(.2) contrast(1.1) brightness(.8)}
+
+/* QA-правки */
+.violet{--tint:transparent;--grade:grayscale(.6) contrast(1.08) brightness(.8)}
+.orange .band:before{background:linear-gradient(0deg,var(--bg) 4%,#100b08d9 45%,#100b0880),radial-gradient(ellipse 60% 60% at 80% 0%,#ff5b1430,transparent 70%)}
+.orange .band-media:after{display:none}
+.red .facts dt{font-size:clamp(34px,4vw,56px);white-space:nowrap}
+@media(max-width:760px){.red .facts dt,.intro .facts dt{font-size:30px}.intro .facts{gap:20px}}
+@media(max-width:1100px){
+ .hero-photo,.orange .hero-photo{order:0;width:100%;max-width:none;height:auto;aspect-ratio:4/3}
+ .hero-photo img{object-position:center 66%}
+ .plate{top:64.7%}
+ .red .steps{grid-template-columns:1fr}
+ .red .steps li,.red .steps li:first-child{padding:32px 0;border-left:0;border-top:1px solid #ffffff14}
+ .red .steps li:before,.red .steps li:first-child:before{left:0;right:0}
+ .red .steps li:after{display:none}}
+@media(max-width:760px){.hero-photo,.orange .hero-photo{aspect-ratio:4/5}.hero-photo img{object-position:center}.plate{top:65.2%;left:73.4%;width:21cqw}}
+.red h1 em{padding-left:.1em}
