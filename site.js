@@ -3,6 +3,8 @@
 const WL = window.WL || {}, $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
 const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const money = n => new Intl.NumberFormat('ru-RU').format(n).replace(/\s/g, ' ') + ' ₽';
+const from = n => (n ? 'от ' + money(n) : 'по запросу');
+const ARR = '<svg class="arr" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 10h13M11 4.5 16.5 10 11 15.5"/></svg>';
 const tg = window.Telegram && Telegram.WebApp && Telegram.WebApp.initData !== undefined ? Telegram.WebApp : null;
 const haptic = t => { try { tg && tg.HapticFeedback && (t === 'ok' ? tg.HapticFeedback.notificationOccurred('success') : tg.HapticFeedback.impactOccurred('light')); } catch (e) {} };
 
@@ -71,9 +73,9 @@ if ('IntersectionObserver' in window) {
 } else $$('.rv,.ph').forEach(el => el.classList.add('in'));
 
 /* prices */
-const tabs = $$('.pl-tab'), q = $('#pl-q'), results = $('#pl-results');
-function setCat(id, focus) {
-  tabs.forEach(b => { const on = b.dataset.cat === id; b.setAttribute('aria-selected', on); b.tabIndex = on ? 0 : -1; if (on) { focus && b.focus(); b.scrollIntoView({ block: 'nearest', inline: 'nearest', behavior: 'smooth' }); } });
+let tabs = $$('.pl-tab'); const q = $('#pl-q'), results = $('#pl-results');
+function setCat(id, focus, quiet) {
+  tabs.forEach(b => { const on = b.dataset.cat === id; b.setAttribute('aria-selected', on); b.tabIndex = on ? 0 : -1; if (on && !quiet) { focus && b.focus(); b.scrollIntoView({ block: 'nearest', inline: 'nearest', behavior: 'smooth' }); } });
   $$('.pl-group[data-group]').forEach(g => { const on = g.dataset.group === id; g.hidden = !on; if (on) { g.classList.remove('swap'); void g.offsetWidth; g.classList.add('swap'); } });
   results.hidden = true; if (q.value) q.value = '';
 }
@@ -83,7 +85,7 @@ $('.pl-tabs').addEventListener('keydown', e => {
   if (k) { e.preventDefault(); setCat(tabs[(i + k + tabs.length) % tabs.length].dataset.cat, true); }
 });
 $$('.tile[data-cat]').forEach(t => t.addEventListener('click', () => setCat(t.dataset.cat)));
-const allRows = $$('.pl-group[data-group] .pl-row').map(b => ({ name: b.dataset.work, price: +b.dataset.price, group: b.dataset.groupName }));
+let allRows = $$('.pl-group[data-group] .pl-row').map(b => ({ name: b.dataset.work, price: +b.dataset.price, group: b.dataset.groupName }));
 const norm = s => s.toLowerCase().replace(/ё/g, 'е');
 q.addEventListener('input', () => {
   const v = norm(q.value.trim());
@@ -93,15 +95,47 @@ q.addEventListener('input', () => {
   $('[data-count]', results).textContent = hits.length ? `Найдено работ: ${hits.length}` : '';
   $('.pl-empty', results).hidden = !!hits.length;
   const rx = new RegExp('(' + words.map(w => w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|') + ')', 'gi');
-  $('.pl-rows', results).innerHTML = hits.map(r => `<li><button type="button" class="pl-row" data-work="${esc(r.name)}" data-price="${r.price}"><span class="pl-name">${esc(r.name).replace(rx, '<mark>$1</mark>')}<small>${esc(r.group)}</small></span><span class="pl-price">от ${money(r.price)}</span><svg class="arr" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 10h13M11 4.5 16.5 10 11 15.5"/></svg></button></li>`).join('');
+  $('.pl-rows', results).innerHTML = hits.map(r => `<li><button type="button" class="pl-row" data-work="${esc(r.name)}" data-price="${r.price}"><span class="pl-name">${esc(r.name).replace(rx, '<mark>$1</mark>')}<small>${esc(r.group)}</small></span><span class="pl-price">${from(r.price)}</span>${ARR}</button></li>`).join('');
 });
 $('#pl').addEventListener('click', e => { const r = e.target.closest('.pl-row'); if (!r) return; setWork(r.dataset.work, +r.dataset.price); haptic(); $('#booking').scrollIntoView({ behavior: 'smooth' }); setTimeout(() => form.name.focus({ preventScroll: true }), 700); });
+
+/* live prices: services and prices edited in the bot admin panel */
+function applyContent(c) {
+  const gs = (c && c.groups || []).filter(g => g && g.id && Array.isArray(g.items));
+  if (!gs.length) return;
+  const cur = (tabs.find(b => b.getAttribute('aria-selected') === 'true') || { dataset: {} }).dataset.cat;
+  $('.pl-tabs').innerHTML = gs.map(g => `<button type="button" role="tab" class="pl-tab" id="tab-${esc(g.id)}" data-cat="${esc(g.id)}" aria-controls="pl-${esc(g.id)}" aria-selected="false" tabindex="-1">${esc(g.name)}</button>`).join('');
+  $$('.pl-group[data-group]').forEach(el => el.parentNode.removeChild(el));
+  results.insertAdjacentHTML('beforebegin', gs.map(g => `<div class="pl-group" id="pl-${esc(g.id)}" role="tabpanel" aria-labelledby="tab-${esc(g.id)}" data-group="${esc(g.id)}" hidden><div class="pl-head"><h3>${esc(g.name)}</h3>${g.intro ? `<p>${esc(g.intro)}</p>` : ''}</div>
+<ul class="pl-rows">${g.items.map(([n, p]) => `<li><button type="button" class="pl-row" data-work="${esc(n)}" data-price="${+p || 0}" data-group-name="${esc(g.short)}"><span class="pl-name">${esc(n)}</span><span class="pl-price">${from(+p)}</span>${ARR}</button></li>`).join('')}</ul>
+${g.when ? `<p class="pl-when"><b>Когда обращаться.</b> ${esc(g.when)}</p>` : ''}</div>`).join(''));
+  tabs = $$('.pl-tab');
+  allRows = $$('.pl-group[data-group] .pl-row').map(b => ({ name: b.dataset.work, price: +b.dataset.price, group: b.dataset.groupName }));
+  setCat(gs.some(g => g.id === cur) ? cur : gs[0].id, false, true);
+  $$('.tile[data-cat]').forEach(t => {
+    const g = gs.find(x => x.id === t.dataset.cat), el = $('.tile-foot b', t); if (!el) return;
+    const p = g ? g.items.map(i => +i[1]).filter(Boolean) : [];
+    el.textContent = from(p.length ? Math.min(...p) : 0);
+  });
+  const sel = $('#form select[name=brand]');
+  if (sel && Array.isArray(c.brands) && c.brands.length) {
+    const v = sel.value;
+    sel.innerHTML = [...c.brands, 'Другая марка'].map(b => `<option>${esc(b)}</option>`).join('');
+    if ([...sel.options].some(o => o.value === v)) sel.value = v;
+  }
+}
+if (WL.api) {
+  const ctl = 'AbortController' in window ? new AbortController() : null;
+  if (ctl) setTimeout(() => ctl.abort(), 5000);
+  fetch(WL.api.replace(/\/$/, '') + '/api/content', ctl ? { signal: ctl.signal } : {})
+    .then(r => (r.ok ? r.json() : null)).then(c => { if (c && c.custom) applyContent(c); }).catch(() => {});
+}
 
 /* booking form */
 const form = $('#form'), est = $('#est');
 function setWork(name, price) {
   form.work.value = name;
-  est.innerHTML = `<div class="est"><span>${esc(name)}<small>предварительная стоимость работы</small></span><b>от ${money(price)}</b><button type="button" aria-label="Убрать работу" data-clear>✕</button></div>`;
+  est.innerHTML = `<div class="est"><span>${esc(name)}<small>предварительная стоимость работы</small></span><b>${from(price)}</b><button type="button" aria-label="Убрать работу" data-clear>✕</button></div>`;
 }
 est.addEventListener('click', e => { if (e.target.closest('[data-clear]')) { est.innerHTML = ''; form.work.value = ''; form.work.focus(); } });
 form.work.addEventListener('input', () => { if (est.innerHTML) est.innerHTML = ''; });
