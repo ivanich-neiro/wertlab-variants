@@ -59,13 +59,13 @@ const html = `<!doctype html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>WERTlab — сервис BMW премиум-класса в Ижевске</title>
+<title>WERTlab — автосервис BMW премиум-класса в Ижевске</title>
 <meta name="description" content="Обслуживание и ремонт BMW, Porsche, Range Rover, Li Auto и Zeekr в Ижевске. Диагностика до начала ремонта, смета согласуется заранее. Буммашевская, 3а.">
 <meta name="theme-color" content="#09090c">
 <meta name="color-scheme" content="dark">
 <link rel="canonical" href="${SITE}">
 <meta property="og:type" content="website"><meta property="og:locale" content="ru_RU"><meta property="og:site_name" content="WERTlab">
-<meta property="og:title" content="WERTlab — сервис премиум-класса в Ижевске"><meta property="og:description" content="BMW, Porsche, Range Rover, Li Auto и Zeekr. Диагностика, ТО и ремонт. Запись онлайн и в Telegram.">
+<meta property="og:title" content="WERTlab — автосервис премиум-класса в Ижевске"><meta property="og:description" content="BMW, Porsche, Range Rover, Li Auto и Zeekr. Диагностика, ТО и ремонт. Запись онлайн и в Telegram.">
 <meta property="og:url" content="${SITE}"><meta property="og:image" content="${SITE}img/og.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="img/icon-180.png">
@@ -96,7 +96,7 @@ const html = `<!doctype html>
 <section class="hero" id="top"><div class="wrap hero-grid">
 <div class="hero-copy">
 <p class="status rv" data-status><i></i><span>${C.hoursText}</span></p>
-<h1 class="rv">Сервис<br><em>премиум-класса</em></h1>
+<h1 class="rv">Автосервис<br><em>премиум-класса</em></h1>
 <p class="lead rv">Обслуживание и ремонт BMW, Porsche, Range Rover, Li Auto и Zeekr в Ижевске</p>
 <div class="actions rv"><a class="btn" href="#booking"><span>Записаться на сервис</span>${I.arrow}</a><a class="btn btn-ghost" href="#prices"><span>Цены на работы</span></a></div>
 </div>
