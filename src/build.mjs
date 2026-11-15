@@ -119,7 +119,7 @@ const html = `<!doctype html>
 <section class="section" id="services"><div class="wrap">
 <div class="head rv"><h2>Чем мы <em>занимаемся</em></h2><p>Каждое направление начинается с диагностики. Работы и запчасти согласуем заранее.</p></div>
 <div class="tiles">${tiles.map((x, i) => `<a class="tile t${i} rv" href="#prices" data-cat="${x.cat}"><figure class="ph">${pic(x.img, [720, 1440], x.alt, i % 3 === 0 ? '(max-width:760px) 100vw, (max-width:1100px) 50vw, 58vw' : '(max-width:760px) 100vw, (max-width:1100px) 50vw, 42vw')}</figure>
-<div class="tile-body"><h3>${x.name}</h3><p>${x.text}</p><span class="tile-foot"><b>от ${money(minPrice(G(x.cat)))}</b><i>${I.arrow}</i></span></div></a>`).join('')}</div>
+<div class="tile-body"><h3>${x.name}</h3><p>${x.text}</p><span class="tile-foot"><b>от ${money(minPrice(G(x.cat)))}</b><span class="tile-go"><span>Цены и запись</span><i>${I.arrow}</i></span></span></div></a>`).join('')}</div>
 </div></section>
 
 <section class="section prices-sec" id="prices"><div class="wrap">
